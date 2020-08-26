@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Renci.SshNet.Common;
+using Renci.SshNet.Messages.Connection;
 
 namespace Renci.SshNet.Channels
 {
@@ -12,6 +13,8 @@ namespace Renci.SshNet.Channels
         /// Opens the channel.
         /// </summary>
         void Open();
+
+        void Open(ChannelOpenInfo info);
 
         /// <summary>
         /// Sends the pseudo terminal request.

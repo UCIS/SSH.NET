@@ -506,5 +506,16 @@ namespace Renci.SshNet
             if (Session == null)
                 throw new SshConnectionException("Client not connected.");
         }
+
+        /// <summary>
+        /// Creates a TCP client stream.
+        /// </summary>
+        /// <param name="remoteHost">The host address to connect to.</param>
+        /// <param name="port">The port number to connect to.</param>
+        public Stream CreateTcpClientStream(string remoteHost, uint port) {
+            EnsureSessionIsOpen();
+
+            return ServiceFactory.CreateTcpClientStream(Session, remoteHost, port);
+        }
     }
 }

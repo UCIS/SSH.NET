@@ -62,12 +62,16 @@ namespace Renci.SshNet.Channels
         /// <summary>
         /// Opens the channel.
         /// </summary>
-        public void Open()
+        public void Open() {
+            Open(new SessionChannelOpenInfo());
+        }
+
+        public void Open(ChannelOpenInfo info)
         {
             //  Try to open channel several times
             while (!IsOpen && _failedOpenAttempts < ConnectionInfo.RetryAttempts)
             {
-                SendChannelOpenMessage();
+                SendChannelOpenMessage(info);
                 try
                 {
                     WaitOnHandle(_channelOpenResponseWaitHandle);
@@ -392,7 +396,7 @@ namespace Renci.SshNet.Channels
         /// confirmed or rejected attempt to open the channel.
         /// </para>
         /// </remarks>
-        private void SendChannelOpenMessage()
+        private void SendChannelOpenMessage(ChannelOpenInfo info)
         {
             // do not allow open to be ChannelOpenMessage to be sent again until we've
             // had a response on the previous attempt for the current channel
@@ -402,7 +406,7 @@ namespace Renci.SshNet.Channels
                 SendMessage(new ChannelOpenMessage(LocalChannelNumber,
                                                    LocalWindowSize,
                                                    LocalPacketSize,
-                                                   new SessionChannelOpenInfo()));
+                                                   info));
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Renci.SshNet.Common;
@@ -187,6 +188,10 @@ namespace Renci.SshNet
         public IRemotePathTransformation CreateRemotePathDoubleQuoteTransformation()
         {
             return RemotePathTransformation.DoubleQuote;
+        }
+
+        public Stream CreateTcpClientStream(ISession session, string remoteHost, uint port) {
+            return new TcpClientStream(session, remoteHost, port);
         }
     }
 }
